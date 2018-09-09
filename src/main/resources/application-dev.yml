@@ -1,0 +1,16 @@
+db: springboot
+server:
+  port: 8888
+#  servlet:
+#    context-path: /jack/api/v1
+#    session:
+#      cookie:
+#        name: JackCustID
+spring:
+  datasource:
+    druid:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/${db}?characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: root
