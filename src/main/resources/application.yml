@@ -1,19 +1,23 @@
-#db: springboot
+server:
+    port: 8081
+    servlet:
+        context-path: /jack/api
+        session:
+            cookie:
+                name: JackCustID
+
 spring:
-  profiles:
-    include: druid
-    active: dev
-#datasource:
-#     driver-class-name: com.mysql.jdbc.Driver
-#     url: jdbc:mysql://127.0.0.1:3306/${db}?characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
-#     username: root
-#     password: root
+    profiles:
+        active: dev
+
 mybatis:
-  mapper-locations: classpath:mapping/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
-  type-aliases-package: com.winter.model  # 注意：对应实体类的路径
-#pagehelper分页插件
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
+    mapper-locations: classpath:mapping/*.xml
+    type-aliases-package: com.bean
+    configLocation: classpath:mybatis-config.xml
+
+logging:
+    level:
+        com.mapper: debug
+    path: ./logs
+
+
