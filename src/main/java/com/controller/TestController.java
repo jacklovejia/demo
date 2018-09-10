@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dbservice.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,12 @@ public class TestController {
     @RequestMapping("/testDB")
     public String testDB(){
         List<Map<String, String>> list = testService.getList();
-        System.out.print(list);
         return list.toString();
+    }
+
+    @RequestMapping("/testPage")
+    public JSONObject testPage(int currentPage,int pageSize){
+
+        return null;
     }
 }
