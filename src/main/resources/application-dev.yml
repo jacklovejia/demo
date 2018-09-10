@@ -1,7 +1,7 @@
 spring:
     datasource:
         name: springboot
-        url: jdbc:mysql://localhost:3306/springboot?useAffectedRows=true
+        url: jdbc:mysql://localhost:3306/springboot?useAffectedRows=true&useSSL=false
         username: root
         password: root
         # 使用druid数据源
