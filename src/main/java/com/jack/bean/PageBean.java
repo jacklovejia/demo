@@ -1,4 +1,4 @@
-package com.bean;
+package com.jack.bean;
 
 import java.util.List;
 

@@ -7,11 +7,8 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-//@SpringBootApplication
-//@MapperScan("com.mapper")
-//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @SpringBootApplication
-@MapperScan("com.mapper")
+@MapperScan("com.jack.mapper")
 @EnableTransactionManagement
 @EnableScheduling
 public class DemoApplication {
@@ -19,4 +16,5 @@ public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
+
 }
