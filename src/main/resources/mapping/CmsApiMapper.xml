@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jack.mapper.CmsApiMapper" >
+  <resultMap id="BaseResultMap" type="com.jack.bean.CmsApi" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="platform" property="platform" jdbcType="INTEGER" />
+    <result column="api_name" property="apiName" jdbcType="CHAR" />
+    <result column="url" property="url" jdbcType="CHAR" />
+    <result column="request_no" property="requestNo" jdbcType="CHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="error_message" property="errorMessage" jdbcType="VARCHAR" />
+    <result column="req_time" property="reqTime" jdbcType="BIGINT" />
+    <result column="end_time" property="endTime" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.jack.bean.CmsApiWithBLOBs" extends="BaseResultMap" >
+    <result column="request_content" property="requestContent" jdbcType="LONGVARCHAR" />
+    <result column="response_content" property="responseContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, platform, api_name, url, request_no, state, error_message, req_time, end_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    request_content, response_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.jack.bean.CmsApiExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cms_api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jack.bean.CmsApiExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cms_api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from cms_api
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cms_api
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jack.bean.CmsApiExample" >
+    delete from cms_api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jack.bean.CmsApiWithBLOBs" >
+    insert into cms_api (id, platform, api_name, 
+      url, request_no, state, error_message, 
+      req_time, end_time, request_content, 
+      response_content)
+    values (#{id,jdbcType=BIGINT}, #{platform,jdbcType=INTEGER}, #{apiName,jdbcType=CHAR}, 
+      #{url,jdbcType=CHAR}, #{requestNo,jdbcType=CHAR}, #{state,jdbcType=INTEGER}, #{errorMessage,jdbcType=VARCHAR}, 
+      #{reqTime,jdbcType=BIGINT}, #{endTime,jdbcType=BIGINT}, #{requestContent,jdbcType=LONGVARCHAR}, 
+      #{responseContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jack.bean.CmsApiWithBLOBs" >
+    insert into cms_api
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="platform != null" >
+        platform,
+      </if>
+      <if test="apiName != null" >
+        api_name,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="requestNo != null" >
+        request_no,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="errorMessage != null" >
+        error_message,
+      </if>
+      <if test="reqTime != null" >
+        req_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="requestContent != null" >
+        request_content,
+      </if>
+      <if test="responseContent != null" >
+        response_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="platform != null" >
+        #{platform,jdbcType=INTEGER},
+      </if>
+      <if test="apiName != null" >
+        #{apiName,jdbcType=CHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=CHAR},
+      </if>
+      <if test="requestNo != null" >
+        #{requestNo,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="errorMessage != null" >
+        #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="reqTime != null" >
+        #{reqTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="requestContent != null" >
+        #{requestContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="responseContent != null" >
+        #{responseContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jack.bean.CmsApiExample" resultType="java.lang.Integer" >
+    select count(*) from cms_api
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cms_api
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.platform != null" >
+        platform = #{record.platform,jdbcType=INTEGER},
+      </if>
+      <if test="record.apiName != null" >
+        api_name = #{record.apiName,jdbcType=CHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=CHAR},
+      </if>
+      <if test="record.requestNo != null" >
+        request_no = #{record.requestNo,jdbcType=CHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.errorMessage != null" >
+        error_message = #{record.errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqTime != null" >
+        req_time = #{record.reqTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.requestContent != null" >
+        request_content = #{record.requestContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.responseContent != null" >
+        response_content = #{record.responseContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update cms_api
+    set id = #{record.id,jdbcType=BIGINT},
+      platform = #{record.platform,jdbcType=INTEGER},
+      api_name = #{record.apiName,jdbcType=CHAR},
+      url = #{record.url,jdbcType=CHAR},
+      request_no = #{record.requestNo,jdbcType=CHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      error_message = #{record.errorMessage,jdbcType=VARCHAR},
+      req_time = #{record.reqTime,jdbcType=BIGINT},
+      end_time = #{record.endTime,jdbcType=BIGINT},
+      request_content = #{record.requestContent,jdbcType=LONGVARCHAR},
+      response_content = #{record.responseContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cms_api
+    set id = #{record.id,jdbcType=BIGINT},
+      platform = #{record.platform,jdbcType=INTEGER},
+      api_name = #{record.apiName,jdbcType=CHAR},
+      url = #{record.url,jdbcType=CHAR},
+      request_no = #{record.requestNo,jdbcType=CHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      error_message = #{record.errorMessage,jdbcType=VARCHAR},
+      req_time = #{record.reqTime,jdbcType=BIGINT},
+      end_time = #{record.endTime,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jack.bean.CmsApiWithBLOBs" >
+    update cms_api
+    <set >
+      <if test="platform != null" >
+        platform = #{platform,jdbcType=INTEGER},
+      </if>
+      <if test="apiName != null" >
+        api_name = #{apiName,jdbcType=CHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=CHAR},
+      </if>
+      <if test="requestNo != null" >
+        request_no = #{requestNo,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="errorMessage != null" >
+        error_message = #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="reqTime != null" >
+        req_time = #{reqTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="requestContent != null" >
+        request_content = #{requestContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="responseContent != null" >
+        response_content = #{responseContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jack.bean.CmsApiWithBLOBs" >
+    update cms_api
+    set platform = #{platform,jdbcType=INTEGER},
+      api_name = #{apiName,jdbcType=CHAR},
+      url = #{url,jdbcType=CHAR},
+      request_no = #{requestNo,jdbcType=CHAR},
+      state = #{state,jdbcType=INTEGER},
+      error_message = #{errorMessage,jdbcType=VARCHAR},
+      req_time = #{reqTime,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=BIGINT},
+      request_content = #{requestContent,jdbcType=LONGVARCHAR},
+      response_content = #{responseContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jack.bean.CmsApi" >
+    update cms_api
+    set platform = #{platform,jdbcType=INTEGER},
+      api_name = #{apiName,jdbcType=CHAR},
+      url = #{url,jdbcType=CHAR},
+      request_no = #{requestNo,jdbcType=CHAR},
+      state = #{state,jdbcType=INTEGER},
+      error_message = #{errorMessage,jdbcType=VARCHAR},
+      req_time = #{reqTime,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

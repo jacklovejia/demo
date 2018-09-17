@@ -9,21 +9,14 @@ server:
 spring:
     profiles:
         active: dev
-        include: mybatisplus
     jackson:
       date-format: yyyy-MM-dd HH:mm:ss
       time-zone: GMT+8
 
-#mybatis:
-#    mapper-locations: classpath:mapping/*.xml
-#    type-aliases-package: com.jack.bean
-#    configLocation: classpath:mybatis-config.xml
-
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
+mybatis:
+    mapper-locations: classpath:mapping/*.xml
+    type-aliases-package: com.jack.bean
+    configLocation: classpath:mybatis-config.xml
 
 logging:
     level:

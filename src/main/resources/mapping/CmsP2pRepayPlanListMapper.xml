@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jack.mapper.CmsP2pRepayPlanListMapper" >
+  <resultMap id="BaseResultMap" type="com.jack.bean.CmsP2pRepayPlanList" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="sid" property="sid" jdbcType="INTEGER" />
+    <result column="borrower_uid" property="borrowerUid" jdbcType="INTEGER" />
+    <result column="repay_date" property="repayDate" jdbcType="VARCHAR" />
+    <result column="repay_type" property="repayType" jdbcType="INTEGER" />
+    <result column="repay_status" property="repayStatus" jdbcType="INTEGER" />
+    <result column="repay_amount" property="repayAmount" jdbcType="DECIMAL" />
+    <result column="provision" property="provision" jdbcType="DECIMAL" />
+    <result column="service_fee" property="serviceFee" jdbcType="DECIMAL" />
+    <result column="third_service_fee" property="thirdServiceFee" jdbcType="DECIMAL" />
+    <result column="capital" property="capital" jdbcType="DECIMAL" />
+    <result column="interest" property="interest" jdbcType="DECIMAL" />
+    <result column="step" property="step" jdbcType="INTEGER" />
+    <result column="bizType" property="biztype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, sid, borrower_uid, repay_date, repay_type, repay_status, repay_amount, provision, 
+    service_fee, third_service_fee, capital, interest, step, bizType
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jack.bean.CmsP2pRepayPlanListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cms_p2p_repay_plan_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_p2p_repay_plan_list
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cms_p2p_repay_plan_list
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jack.bean.CmsP2pRepayPlanListExample" >
+    delete from cms_p2p_repay_plan_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jack.bean.CmsP2pRepayPlanList" >
+    insert into cms_p2p_repay_plan_list (id, sid, borrower_uid, 
+      repay_date, repay_type, repay_status, 
+      repay_amount, provision, service_fee, 
+      third_service_fee, capital, interest, 
+      step, bizType)
+    values (#{id,jdbcType=BIGINT}, #{sid,jdbcType=INTEGER}, #{borrowerUid,jdbcType=INTEGER}, 
+      #{repayDate,jdbcType=VARCHAR}, #{repayType,jdbcType=INTEGER}, #{repayStatus,jdbcType=INTEGER}, 
+      #{repayAmount,jdbcType=DECIMAL}, #{provision,jdbcType=DECIMAL}, #{serviceFee,jdbcType=DECIMAL}, 
+      #{thirdServiceFee,jdbcType=DECIMAL}, #{capital,jdbcType=DECIMAL}, #{interest,jdbcType=DECIMAL}, 
+      #{step,jdbcType=INTEGER}, #{biztype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jack.bean.CmsP2pRepayPlanList" >
+    insert into cms_p2p_repay_plan_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="borrowerUid != null" >
+        borrower_uid,
+      </if>
+      <if test="repayDate != null" >
+        repay_date,
+      </if>
+      <if test="repayType != null" >
+        repay_type,
+      </if>
+      <if test="repayStatus != null" >
+        repay_status,
+      </if>
+      <if test="repayAmount != null" >
+        repay_amount,
+      </if>
+      <if test="provision != null" >
+        provision,
+      </if>
+      <if test="serviceFee != null" >
+        service_fee,
+      </if>
+      <if test="thirdServiceFee != null" >
+        third_service_fee,
+      </if>
+      <if test="capital != null" >
+        capital,
+      </if>
+      <if test="interest != null" >
+        interest,
+      </if>
+      <if test="step != null" >
+        step,
+      </if>
+      <if test="biztype != null" >
+        bizType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sid != null" >
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerUid != null" >
+        #{borrowerUid,jdbcType=INTEGER},
+      </if>
+      <if test="repayDate != null" >
+        #{repayDate,jdbcType=VARCHAR},
+      </if>
+      <if test="repayType != null" >
+        #{repayType,jdbcType=INTEGER},
+      </if>
+      <if test="repayStatus != null" >
+        #{repayStatus,jdbcType=INTEGER},
+      </if>
+      <if test="repayAmount != null" >
+        #{repayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="provision != null" >
+        #{provision,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceFee != null" >
+        #{serviceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdServiceFee != null" >
+        #{thirdServiceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="capital != null" >
+        #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null" >
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="step != null" >
+        #{step,jdbcType=INTEGER},
+      </if>
+      <if test="biztype != null" >
+        #{biztype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jack.bean.CmsP2pRepayPlanListExample" resultType="java.lang.Integer" >
+    select count(*) from cms_p2p_repay_plan_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cms_p2p_repay_plan_list
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.sid != null" >
+        sid = #{record.sid,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowerUid != null" >
+        borrower_uid = #{record.borrowerUid,jdbcType=INTEGER},
+      </if>
+      <if test="record.repayDate != null" >
+        repay_date = #{record.repayDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repayType != null" >
+        repay_type = #{record.repayType,jdbcType=INTEGER},
+      </if>
+      <if test="record.repayStatus != null" >
+        repay_status = #{record.repayStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.repayAmount != null" >
+        repay_amount = #{record.repayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.provision != null" >
+        provision = #{record.provision,jdbcType=DECIMAL},
+      </if>
+      <if test="record.serviceFee != null" >
+        service_fee = #{record.serviceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thirdServiceFee != null" >
+        third_service_fee = #{record.thirdServiceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.capital != null" >
+        capital = #{record.capital,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interest != null" >
+        interest = #{record.interest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.step != null" >
+        step = #{record.step,jdbcType=INTEGER},
+      </if>
+      <if test="record.biztype != null" >
+        bizType = #{record.biztype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cms_p2p_repay_plan_list
+    set id = #{record.id,jdbcType=BIGINT},
+      sid = #{record.sid,jdbcType=INTEGER},
+      borrower_uid = #{record.borrowerUid,jdbcType=INTEGER},
+      repay_date = #{record.repayDate,jdbcType=VARCHAR},
+      repay_type = #{record.repayType,jdbcType=INTEGER},
+      repay_status = #{record.repayStatus,jdbcType=INTEGER},
+      repay_amount = #{record.repayAmount,jdbcType=DECIMAL},
+      provision = #{record.provision,jdbcType=DECIMAL},
+      service_fee = #{record.serviceFee,jdbcType=DECIMAL},
+      third_service_fee = #{record.thirdServiceFee,jdbcType=DECIMAL},
+      capital = #{record.capital,jdbcType=DECIMAL},
+      interest = #{record.interest,jdbcType=DECIMAL},
+      step = #{record.step,jdbcType=INTEGER},
+      bizType = #{record.biztype,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jack.bean.CmsP2pRepayPlanList" >
+    update cms_p2p_repay_plan_list
+    <set >
+      <if test="sid != null" >
+        sid = #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowerUid != null" >
+        borrower_uid = #{borrowerUid,jdbcType=INTEGER},
+      </if>
+      <if test="repayDate != null" >
+        repay_date = #{repayDate,jdbcType=VARCHAR},
+      </if>
+      <if test="repayType != null" >
+        repay_type = #{repayType,jdbcType=INTEGER},
+      </if>
+      <if test="repayStatus != null" >
+        repay_status = #{repayStatus,jdbcType=INTEGER},
+      </if>
+      <if test="repayAmount != null" >
+        repay_amount = #{repayAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="provision != null" >
+        provision = #{provision,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceFee != null" >
+        service_fee = #{serviceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="thirdServiceFee != null" >
+        third_service_fee = #{thirdServiceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="capital != null" >
+        capital = #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null" >
+        interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="step != null" >
+        step = #{step,jdbcType=INTEGER},
+      </if>
+      <if test="biztype != null" >
+        bizType = #{biztype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jack.bean.CmsP2pRepayPlanList" >
+    update cms_p2p_repay_plan_list
+    set sid = #{sid,jdbcType=INTEGER},
+      borrower_uid = #{borrowerUid,jdbcType=INTEGER},
+      repay_date = #{repayDate,jdbcType=VARCHAR},
+      repay_type = #{repayType,jdbcType=INTEGER},
+      repay_status = #{repayStatus,jdbcType=INTEGER},
+      repay_amount = #{repayAmount,jdbcType=DECIMAL},
+      provision = #{provision,jdbcType=DECIMAL},
+      service_fee = #{serviceFee,jdbcType=DECIMAL},
+      third_service_fee = #{thirdServiceFee,jdbcType=DECIMAL},
+      capital = #{capital,jdbcType=DECIMAL},
+      interest = #{interest,jdbcType=DECIMAL},
+      step = #{step,jdbcType=INTEGER},
+      bizType = #{biztype,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

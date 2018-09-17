@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jack.mapper.CmsWithholdUserQuotaMapper" >
+  <resultMap id="BaseResultMap" type="com.jack.bean.CmsWithholdUserQuota" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="contract_no" property="contractNo" jdbcType="CHAR" />
+    <result column="day" property="day" jdbcType="INTEGER" />
+    <result column="total_count" property="totalCount" jdbcType="INTEGER" />
+    <result column="success_count" property="successCount" jdbcType="INTEGER" />
+    <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
+    <result column="success_amount" property="successAmount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, contract_no, day, total_count, success_count, total_amount, success_amount
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jack.bean.CmsWithholdUserQuotaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cms_withhold_user_quota
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_withhold_user_quota
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cms_withhold_user_quota
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jack.bean.CmsWithholdUserQuotaExample" >
+    delete from cms_withhold_user_quota
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jack.bean.CmsWithholdUserQuota" >
+    insert into cms_withhold_user_quota (id, user_id, contract_no, 
+      day, total_count, success_count, 
+      total_amount, success_amount)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{contractNo,jdbcType=CHAR}, 
+      #{day,jdbcType=INTEGER}, #{totalCount,jdbcType=INTEGER}, #{successCount,jdbcType=INTEGER}, 
+      #{totalAmount,jdbcType=DECIMAL}, #{successAmount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jack.bean.CmsWithholdUserQuota" >
+    insert into cms_withhold_user_quota
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="contractNo != null" >
+        contract_no,
+      </if>
+      <if test="day != null" >
+        day,
+      </if>
+      <if test="totalCount != null" >
+        total_count,
+      </if>
+      <if test="successCount != null" >
+        success_count,
+      </if>
+      <if test="totalAmount != null" >
+        total_amount,
+      </if>
+      <if test="successAmount != null" >
+        success_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=CHAR},
+      </if>
+      <if test="day != null" >
+        #{day,jdbcType=INTEGER},
+      </if>
+      <if test="totalCount != null" >
+        #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="successCount != null" >
+        #{successCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalAmount != null" >
+        #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="successAmount != null" >
+        #{successAmount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jack.bean.CmsWithholdUserQuotaExample" resultType="java.lang.Integer" >
+    select count(*) from cms_withhold_user_quota
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cms_withhold_user_quota
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.contractNo != null" >
+        contract_no = #{record.contractNo,jdbcType=CHAR},
+      </if>
+      <if test="record.day != null" >
+        day = #{record.day,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalCount != null" >
+        total_count = #{record.totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.successCount != null" >
+        success_count = #{record.successCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalAmount != null" >
+        total_amount = #{record.totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.successAmount != null" >
+        success_amount = #{record.successAmount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cms_withhold_user_quota
+    set id = #{record.id,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      contract_no = #{record.contractNo,jdbcType=CHAR},
+      day = #{record.day,jdbcType=INTEGER},
+      total_count = #{record.totalCount,jdbcType=INTEGER},
+      success_count = #{record.successCount,jdbcType=INTEGER},
+      total_amount = #{record.totalAmount,jdbcType=DECIMAL},
+      success_amount = #{record.successAmount,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jack.bean.CmsWithholdUserQuota" >
+    update cms_withhold_user_quota
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="contractNo != null" >
+        contract_no = #{contractNo,jdbcType=CHAR},
+      </if>
+      <if test="day != null" >
+        day = #{day,jdbcType=INTEGER},
+      </if>
+      <if test="totalCount != null" >
+        total_count = #{totalCount,jdbcType=INTEGER},
+      </if>
+      <if test="successCount != null" >
+        success_count = #{successCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalAmount != null" >
+        total_amount = #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="successAmount != null" >
+        success_amount = #{successAmount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jack.bean.CmsWithholdUserQuota" >
+    update cms_withhold_user_quota
+    set user_id = #{userId,jdbcType=BIGINT},
+      contract_no = #{contractNo,jdbcType=CHAR},
+      day = #{day,jdbcType=INTEGER},
+      total_count = #{totalCount,jdbcType=INTEGER},
+      success_count = #{successCount,jdbcType=INTEGER},
+      total_amount = #{totalAmount,jdbcType=DECIMAL},
+      success_amount = #{successAmount,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jack.mapper.CmsWithholdRequestSplitMapper" >
+  <resultMap id="BaseResultMap" type="com.jack.bean.CmsWithholdRequestSplit" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="request_id" property="requestId" jdbcType="BIGINT" />
+    <result column="contract_no" property="contractNo" jdbcType="CHAR" />
+    <result column="request_no" property="requestNo" jdbcType="BIGINT" />
+    <result column="split_no" property="splitNo" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="executing_flag" property="executingFlag" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="request_no_start" property="requestNoStart" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="BIGINT" />
+    <result column="end_time" property="endTime" jdbcType="BIGINT" />
+    <result column="exec_time" property="execTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, request_id, contract_no, request_no, split_no, amount, executing_flag, status, 
+    request_no_start, add_time, end_time, exec_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jack.bean.CmsWithholdRequestSplitExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cms_withhold_request_split
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from cms_withhold_request_split
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from cms_withhold_request_split
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jack.bean.CmsWithholdRequestSplitExample" >
+    delete from cms_withhold_request_split
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jack.bean.CmsWithholdRequestSplit" >
+    insert into cms_withhold_request_split (id, request_id, contract_no, 
+      request_no, split_no, amount, 
+      executing_flag, status, request_no_start, 
+      add_time, end_time, exec_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{requestId,jdbcType=BIGINT}, #{contractNo,jdbcType=CHAR}, 
+      #{requestNo,jdbcType=BIGINT}, #{splitNo,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
+      #{executingFlag,jdbcType=TINYINT}, #{status,jdbcType=INTEGER}, #{requestNoStart,jdbcType=INTEGER}, 
+      #{addTime,jdbcType=BIGINT}, #{endTime,jdbcType=BIGINT}, #{execTime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jack.bean.CmsWithholdRequestSplit" >
+    insert into cms_withhold_request_split
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="requestId != null" >
+        request_id,
+      </if>
+      <if test="contractNo != null" >
+        contract_no,
+      </if>
+      <if test="requestNo != null" >
+        request_no,
+      </if>
+      <if test="splitNo != null" >
+        split_no,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="executingFlag != null" >
+        executing_flag,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="requestNoStart != null" >
+        request_no_start,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="execTime != null" >
+        exec_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="requestId != null" >
+        #{requestId,jdbcType=BIGINT},
+      </if>
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=CHAR},
+      </if>
+      <if test="requestNo != null" >
+        #{requestNo,jdbcType=BIGINT},
+      </if>
+      <if test="splitNo != null" >
+        #{splitNo,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="executingFlag != null" >
+        #{executingFlag,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="requestNoStart != null" >
+        #{requestNoStart,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="execTime != null" >
+        #{execTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jack.bean.CmsWithholdRequestSplitExample" resultType="java.lang.Integer" >
+    select count(*) from cms_withhold_request_split
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update cms_withhold_request_split
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.requestId != null" >
+        request_id = #{record.requestId,jdbcType=BIGINT},
+      </if>
+      <if test="record.contractNo != null" >
+        contract_no = #{record.contractNo,jdbcType=CHAR},
+      </if>
+      <if test="record.requestNo != null" >
+        request_no = #{record.requestNo,jdbcType=BIGINT},
+      </if>
+      <if test="record.splitNo != null" >
+        split_no = #{record.splitNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.executingFlag != null" >
+        executing_flag = #{record.executingFlag,jdbcType=TINYINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.requestNoStart != null" >
+        request_no_start = #{record.requestNoStart,jdbcType=INTEGER},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.execTime != null" >
+        exec_time = #{record.execTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update cms_withhold_request_split
+    set id = #{record.id,jdbcType=BIGINT},
+      request_id = #{record.requestId,jdbcType=BIGINT},
+      contract_no = #{record.contractNo,jdbcType=CHAR},
+      request_no = #{record.requestNo,jdbcType=BIGINT},
+      split_no = #{record.splitNo,jdbcType=INTEGER},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      executing_flag = #{record.executingFlag,jdbcType=TINYINT},
+      status = #{record.status,jdbcType=INTEGER},
+      request_no_start = #{record.requestNoStart,jdbcType=INTEGER},
+      add_time = #{record.addTime,jdbcType=BIGINT},
+      end_time = #{record.endTime,jdbcType=BIGINT},
+      exec_time = #{record.execTime,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jack.bean.CmsWithholdRequestSplit" >
+    update cms_withhold_request_split
+    <set >
+      <if test="requestId != null" >
+        request_id = #{requestId,jdbcType=BIGINT},
+      </if>
+      <if test="contractNo != null" >
+        contract_no = #{contractNo,jdbcType=CHAR},
+      </if>
+      <if test="requestNo != null" >
+        request_no = #{requestNo,jdbcType=BIGINT},
+      </if>
+      <if test="splitNo != null" >
+        split_no = #{splitNo,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="executingFlag != null" >
+        executing_flag = #{executingFlag,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="requestNoStart != null" >
+        request_no_start = #{requestNoStart,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="execTime != null" >
+        exec_time = #{execTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jack.bean.CmsWithholdRequestSplit" >
+    update cms_withhold_request_split
+    set request_id = #{requestId,jdbcType=BIGINT},
+      contract_no = #{contractNo,jdbcType=CHAR},
+      request_no = #{requestNo,jdbcType=BIGINT},
+      split_no = #{splitNo,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=DECIMAL},
+      executing_flag = #{executingFlag,jdbcType=TINYINT},
+      status = #{status,jdbcType=INTEGER},
+      request_no_start = #{requestNoStart,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=BIGINT},
+      exec_time = #{execTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

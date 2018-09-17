@@ -1,11 +1,11 @@
 package com.jack.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.jack.bean.Test;
-import com.jack.dbservice.TestService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.jack.bean.CmsApi;
+import com.jack.bean.CmsApiExample;
+import com.jack.common.Result;
+import com.jack.mapper.CmsApiMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,19 +19,18 @@ import java.util.List;
 @RequestMapping("/test")
 public class TestController {
 
-    @Autowired
-    private TestService testService;
 
+    @Autowired
+    private CmsApiMapper cmsApiMapper;
 
     @RequestMapping("/testPage")
-    public JSONObject testPage() {
-        int current = 1;
-        int size = 4;
-        JSONObject json = new JSONObject();
-        Wrapper<Test> tWrapper = new EntityWrapper<>();
-//        List<Test> tests = testService.selectList(tWrapper);
-        Page<Test> testPage = testService.selectPage(new Page<>(current, size), tWrapper);
-        json.put("data",testPage);
-        return json;
+    public Result test() {
+        CmsApiExample example = new CmsApiExample();
+        PageHelper.startPage(1, 4);
+        List<CmsApi> list = cmsApiMapper.selectByExample(example);
+        PageInfo<CmsApi> p = new PageInfo<>(list);
+        return  Result.ok(p);
     }
+
+
 }
