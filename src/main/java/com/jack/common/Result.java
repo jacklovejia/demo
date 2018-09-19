@@ -123,7 +123,7 @@ public class Result {
      * 没有object对象的转化
      * 
      * @param json
-     * @return
+     * @RETURN
      */
     public static Result format(String json) {
         try {
