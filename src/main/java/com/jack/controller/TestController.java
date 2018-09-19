@@ -26,6 +26,9 @@ public class TestController {
     @RequestMapping("/testPage")
     public Result test() {
         CmsApiExample example = new CmsApiExample();
+//        CmsApiExample.Criteria criteria = example.createCriteria(); // 创建查询条件
+//        criteria.andApiNameEqualTo("11");
+
         PageHelper.startPage(1, 4);
         List<CmsApi> list = cmsApiMapper.selectByExample(example);
         PageInfo<CmsApi> p = new PageInfo<>(list);
