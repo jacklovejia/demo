@@ -7,6 +7,8 @@ import com.jack.bean.AdminExample;
 import com.jack.common.RequestStatus;
 import com.jack.common.Result;
 import com.jack.mapper.AdminMapper;
+import com.jack.service.AdminService;
+import com.jack.utils.DateUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,8 @@ public class AdminController {
 
     @Autowired
     private AdminMapper adminMapper;
+    @Autowired
+    private AdminService adminService;
 
     @RequestMapping("/login")
     public Result login(@RequestBody String body){
@@ -46,6 +50,9 @@ public class AdminController {
         String token = UUID.randomUUID().toString();
         JSONObject tokenJs = new JSONObject();
         tokenJs.put("token",token);
+        Admin admin = adminList.get(0);
+        admin.setLastlogintime(DateUtil.getFormatDate2());
+        adminService.updateLastLoginTime(admin);
         return Result.ok(tokenJs);
     }
 
