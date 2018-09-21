@@ -33,6 +33,7 @@ public class ShiroConfig {
     @Bean
     public DefaultWebSecurityManager securityManager(){
         DefaultWebSecurityManager securityManager =  new DefaultWebSecurityManager();
+        // 这里set 的是realm() 不是new 的 之前这里写的是new realm() 导致 UserRealm中业务层注入不进去
                 securityManager.setRealm(realm());
         return securityManager;
     }
