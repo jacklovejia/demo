@@ -70,4 +70,17 @@ public class Admin {
     public void setLastlogintime(String lastlogintime) {
         this.lastlogintime = lastlogintime == null ? null : lastlogintime.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "id=" + id +
+                ", adminname='" + adminname + '\'' +
+                ", password='" + password + '\'' +
+                ", relaname='" + relaname + '\'' +
+                ", email='" + email + '\'' +
+                ", addtime='" + addtime + '\'' +
+                ", lastlogintime='" + lastlogintime + '\'' +
+                '}';
+    }
 }
