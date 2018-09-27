@@ -47,11 +47,13 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        // 授权的
+        log.info("授权的地方走了我操");
         String currentUserName = (String) principals.getPrimaryPrincipal();
         List<String> roles = new ArrayList<String>();  //角色
         List<String> prems = new ArrayList<String>(); //权限
-        roles.add("baidu");
-        roles.add("google");
+        prems.add("admin:adminList");
+        roles.add("admin");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         authorizationInfo.addRoles(roles);
         authorizationInfo.addStringPermissions(prems);
@@ -60,28 +62,13 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-//        SecurityUtils.getSubject().getSession().getId().AuthenticationInfo.class);
+//        登录认证的
         String userName = (String) token.getPrincipal();
-        //为了测试通过，这里暂时写死， user： admin password： 123456
-        // UserVo user = loginClient.selectUserByName(userName);
         log.info("userRealm中用户名是:"+userName);
-
-//        try {
-//            System.out.print("adminMapper:"+adminMapper == null);
-//            AdminExample adminExample = new AdminExample();
-//            AdminExample.Criteria criteria = adminExample.createCriteria();
-//            criteria.andAdminnameEqualTo(userName);
-//
-//            List<Admin> adminList = adminMapper.selectByExample(adminExample);
-//        }catch (Exception e){
-//            log.info("我打印的信息",e);
-//        }
         AdminExample example = new AdminExample();
         AdminExample.Criteria criteria = example.createCriteria();
         criteria.andAdminnameEqualTo(userName);
         List<Admin> adminList = adminMapper.selectByExample(example);
-        log.info("list.size():"+adminList.size());
-
         if (adminList.size() < 1) {
             throw new UnknownAccountException();//没找到帐号
         }

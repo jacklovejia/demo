@@ -16,6 +16,7 @@ import com.jack.service.AdminService;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +40,7 @@ public class AdminController {
     private CmsApiMapper cmsApiMapper;
 
     @RequestMapping("/adminList")
+    @RequiresPermissions("admin:adminList")
     public Result adminList(@RequestBody String body){
         JSONObject json = JSON.parseObject(body);
 //        int current = json.getIntValue("current");
