@@ -10,6 +10,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -49,7 +50,13 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         // 授权的
         log.info("授权的地方走了我操");
+        if (principals == null) {
+            throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
+        }
         String currentUserName = (String) principals.getPrimaryPrincipal();
+        log.info("当前用户是:"+currentUserName);
+        log.info("当前用户是:"+currentUserName);
+        log.info("当前用户是:"+currentUserName);
         List<String> roles = new ArrayList<String>();  //角色
         List<String> prems = new ArrayList<String>(); //权限
         prems.add("admin:adminList");
