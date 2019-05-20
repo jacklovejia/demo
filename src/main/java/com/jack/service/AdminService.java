@@ -6,4 +6,7 @@ public interface AdminService {
 
     void updateLastLoginTime(Admin admin);
 
+    Admin select(int id);
+
+
 }

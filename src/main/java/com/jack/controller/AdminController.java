@@ -39,6 +39,14 @@ public class AdminController {
     @Autowired
     private CmsApiMapper cmsApiMapper;
 
+
+    @RequestMapping("/select")
+    public void select(){
+        int id = 1;
+        Admin admin = adminService.select(id);
+        logger.info("查到用户:"+admin.toString());
+    }
+
     @RequestMapping("/adminList")
     @RequiresPermissions("admin:adminList")
     public Result adminList(@RequestBody String body){
